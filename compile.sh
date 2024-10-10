@@ -1,0 +1,3 @@
+bash point_set_selection/pointnet4/tf_ops/3d_interpolation/tf_interpolate_compile.sh
+bash point_set_selection/pointnet4/tf_ops/grouping/tf_grouping_compile.sh
+bash point_set_selection/pointnet4/tf_ops/sampling/tf_sampling_compile.sh
