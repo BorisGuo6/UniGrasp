@@ -552,6 +552,7 @@ def test(base,pc_real):
                 elif int(gripper_id) == 13:
                   gripper_ends_with = '_par_kinova_3f_fullest_tmp_labelkinova_stage1.npy'
                   gripper_name = 'kinova_kg3'
+                gripper_name = "sawyer"
                 gripper_path_mean = os.path.join(GRIPPER_TOP_DIR,str(gripper_name),'mean.npy')
                 gripper_path_max = os.path.join(GRIPPER_TOP_DIR,str(gripper_name),'max.npy')
                 gripper_path_min = os.path.join(GRIPPER_TOP_DIR,str(gripper_name),'min.npy')
@@ -570,7 +571,9 @@ def test(base,pc_real):
 
       for _ in range(30):
         pred_label, out_single_point_top_1024_index ,out_single_point_top_index = sess.run([pred_label_tf, out_single_point_top_1024_index_tf, out_single_point_top_index_tf],feed_dict={gripper_feat_tf:in_gripper_feat, obj_pc_tf: in_objenv})
-
+        pred_label, out_single_point_top_1024_index_v2 ,out_single_point_top_index = sess.run([pred_label_tf, out_single_point_top_1024_index_tf, out_single_point_top_index_tf],feed_dict={gripper_feat_tf:in_gripper_feat, obj_pc_tf: in_objenv})
+        assert np.all(out_single_point_top_1024_index_v2 == out_single_point_top_1024_index)
+        exit()
         if 0:
           for gj in range(1):
             s_p = np.copy(in_objenv[gj])
@@ -585,9 +588,10 @@ def test(base,pc_real):
 
         # stage2
         if 1:
-          out_single_point_top_1024_index_v2, out_two_points_top_index = sess.run([out_single_point_top_1024_index_tf, out_two_points_top_index_tf],feed_dict={gripper_feat_tf: in_gripper_feat, obj_pc_tf: in_objenv})
+          _, out_single_point_top_1024_index_v2, out_two_points_top_index = sess.run([pred_label_tf, out_single_point_top_1024_index_tf, out_two_points_top_index_tf],feed_dict={gripper_feat_tf: in_gripper_feat, obj_pc_tf: in_objenv})
 
-          assert np.all(out_single_point_top_1024_index_v2 == out_single_point_top_1024_index)    
+          assert np.all(out_single_point_top_1024_index_v2 == out_single_point_top_1024_index)
+              
 
           for gj in range(1):
             two_points_label =  out_two_points_top_index[gj]

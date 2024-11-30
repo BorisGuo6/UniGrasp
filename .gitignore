@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+saved_models/gripper_representation/2248model.ckpt.data-00000-of-00001
+*.zip
+saved_models/point_set_selection/220model.ckpt.data-00000-of-00001
